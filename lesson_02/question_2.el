@@ -1,0 +1,26 @@
+(defvar lune-mode-map (make-sparse-keymap))
+
+(let ((key ?a))
+  (while (<= key ?z)
+    (define-key lune-mode-map (char-to-string key) 'i-am-lune)
+    (setq key (1+ key))))
+
+(defun lune-mode ()
+  "るねきちモードだよー"
+  (interactive)
+  (setq mejor-mode 'lune-mode)
+  (setq mode-name "るねきちモード")
+  (use-local-map lune-mode-map))
+
+(defun i-am-lune ()
+  (interactive)
+  (setq lce last-command-event)
+  (if (eq lce ?z)
+      (let ((i 0) (visible-bell t))
+	(while (< i 3)
+	  (ding)
+	  (sleep-for 0.5)
+	  (setq i (1+ i))
+	  (erase-buffer)
+	  (message "自爆！")))
+    (insert (format "僕るねき%sナリ" (upcase (make-string 1 lce))))))
